@@ -11,6 +11,5 @@ public class App {
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         botsApi.registerBot(new MercyBot());
-        System.out.println("Mercy bot registered successfully");
     }
 }

@@ -2,6 +2,8 @@ package com.ixerion.mercybot.bot;
 
 import com.ixerion.mercybot.builder.Query;
 import com.ixerion.mercybot.parser.ImageParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,6 +23,8 @@ import static com.ixerion.mercybot.util.Constants.*;
 
 public class MercyBot extends TelegramLongPollingBot {
 
+    private static Logger logger = LogManager.getLogger(MercyBot.class);
+
     private Query query;
 
     public MercyBot() {
@@ -28,6 +32,7 @@ public class MercyBot extends TelegramLongPollingBot {
                 .setFilter(THREE_DAYS_FILTER.getValue())
                 .setSearchObject(QUERY.getValue())
                 .setAmount(Integer.valueOf(IMAGE_LIMIT.getValue()));
+        logger.info("Default query " + query.toString() + " created");
     }
 
     @Override
@@ -36,6 +41,7 @@ public class MercyBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             if (message.hasText()) {
                 try {
+                    logger.info("current message: " + message.getText());
                     handleIncomingMessage(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
