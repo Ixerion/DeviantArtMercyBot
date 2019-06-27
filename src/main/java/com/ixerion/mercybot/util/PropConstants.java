@@ -1,9 +1,12 @@
 package com.ixerion.mercybot.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.Properties;
 
-public enum Constants {
+public enum PropConstants {
 
     SITE,
 
@@ -23,8 +26,10 @@ public enum Constants {
 
     private String value;
 
-    Constants() {
+    PropConstants() {
     }
+
+    private static Logger logger = LogManager.getLogger(PropConstants.class);
 
     private void init() {
         if (properties == null) {
@@ -33,7 +38,7 @@ public enum Constants {
             try {
                 properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jsoup.properties"));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.catching(e);
             }
         }
         value = (String) properties.get(this.toString());

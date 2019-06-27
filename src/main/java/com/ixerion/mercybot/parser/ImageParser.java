@@ -2,6 +2,8 @@ package com.ixerion.mercybot.parser;
 
 import com.ixerion.mercybot.builder.Query;
 import com.ixerion.mercybot.entity.Image;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
 public class ImageParser {
+
+    private static Logger logger = LogManager.getLogger(ImageParser.class);
 
     public List<Image> findDeviantartImageElements(Query query) throws IOException {
         Document doc = Jsoup.connect(query.toString()).get();
@@ -31,15 +35,12 @@ public class ImageParser {
     }
 
     public List<String> getImages(Query query) {
-        /*String query = new Query()
-                .setSearchObject(QUERY.getValue())
-                .setFilter(filterValue)
-                .toString();*/
         List<String> urls = null;
         try {
             urls = findDeviantartImageElements(query).stream().map(Image::getHref).collect(Collectors.toList());
+            logger.info("creating list of images...");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.catching(e);
         }
         return urls;
     }

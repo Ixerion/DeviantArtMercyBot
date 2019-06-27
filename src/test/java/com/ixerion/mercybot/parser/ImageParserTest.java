@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static com.ixerion.mercybot.util.Constants.*;
+import static com.ixerion.mercybot.util.PropConstants.*;
 
 public class ImageParserTest {
 

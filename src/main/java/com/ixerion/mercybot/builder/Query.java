@@ -1,15 +1,12 @@
 package com.ixerion.mercybot.builder;
 
-import static com.ixerion.mercybot.util.Constants.SITE;
+import static com.ixerion.mercybot.util.PropConstants.SITE;
 
 public class Query {
 
     private String filter;
     private String searchObject;
     private int amount;
-
-    public Query() {
-    }
 
     public int getAmount() {
         return amount;
